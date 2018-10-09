@@ -67,13 +67,13 @@ public abstract class AbstractFacade<T> {
         return ((Long) q.getSingleResult()).intValue();
     }
     
-    public List<T> searchByLikeName(String search) {
+    public List<T> searchProductByLikeName(String search) {
         List list = getEntityManager().createQuery("Select r From TblProduct r Where r.name LIKE :search")
                 .setParameter("search", "%" + search + "%").getResultList();
         return list;
     }
     
-    public List<T> searchByPriceInRange(float from, float to) {
+    public List<T> searchProductByPriceInRange(float from, float to) {
         List list = getEntityManager().createQuery("Select r From TblProduct r Where r.price BETWEEN :from AND :to")
                 .setParameter("from", from).setParameter("to", to).getResultList();
         return list;

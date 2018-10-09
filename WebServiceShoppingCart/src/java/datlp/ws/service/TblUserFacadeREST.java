@@ -5,7 +5,7 @@
  */
 package datlp.ws.service;
 
-import datlp.ws.TblProduct;
+import datlp.ws.TblUser;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -26,56 +26,56 @@ import javax.ws.rs.core.MediaType;
  * @author DAT
  */
 
-@Path("products")
-public class TblProductFacadeREST extends AbstractFacade<TblProduct> {
+@Path("users")
+public class TblUserFacadeREST extends AbstractFacade<TblUser> {
 
 //    @PersistenceContext(unitName = "WebServiceShoppingCartPU")
 //    private EntityManager em;
     private EntityManagerFactory emf = Persistence.createEntityManagerFactory("WebServiceShoppingCartPU");
     private EntityManager em = emf.createEntityManager();
 
-    public TblProductFacadeREST() {
-        super(TblProduct.class);
+    public TblUserFacadeREST() {
+        super(TblUser.class);
     }
 
     @POST
     @Override
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void create(TblProduct entity) {
+    public void create(TblUser entity) {
         super.create(entity);
     }
 
     @PUT
     @Path("{id}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void edit(@PathParam("id") Integer id, TblProduct entity) {
+    public void edit(@PathParam("id") String id, TblUser entity) {
         super.edit(entity);
     }
 
     @DELETE
     @Path("{id}")
-    public void remove(@PathParam("id") Integer id) {
+    public void remove(@PathParam("id") String id) {
         super.remove(super.find(id));
     }
 
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public TblProduct find(@PathParam("id") Integer id) {
+    public TblUser find(@PathParam("id") String id) {
         return super.find(id);
     }
 
     @GET
     @Override
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<TblProduct> findAll() {
+    public List<TblUser> findAll() {
         return super.findAll();
     }
 
     @GET
     @Path("{from}/{to}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<TblProduct> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
+    public List<TblUser> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
         return super.findRange(new int[]{from, to});
     }
 
@@ -84,20 +84,6 @@ public class TblProductFacadeREST extends AbstractFacade<TblProduct> {
     @Produces(MediaType.TEXT_PLAIN)
     public String countREST() {
         return String.valueOf(super.count());
-    }
-    
-    @GET
-    @Path("name/{search}")
-    @Produces(MediaType.APPLICATION_XML)
-    public List<TblProduct> searchByLikeName(@PathParam("search") String search) {
-        return super.searchProductByLikeName(search);
-    }
-    
-    @GET
-    @Path("price/{from}/{to}")
-    @Produces(MediaType.APPLICATION_XML)
-    public List<TblProduct> searchByPrice(@PathParam("from") float from, @PathParam("to") float to) {
-        return super.searchProductByPriceInRange(from, to);
     }
 
     @Override

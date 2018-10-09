@@ -6,16 +6,19 @@
 package datlp.ws;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -36,12 +39,14 @@ public class TblProduct implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
+    @NotNull
     @Column(name = "id")
     private Integer id;
+    @Size(max = 50)
     @Column(name = "name")
     private String name;
+    @Size(max = 2147483647)
     @Column(name = "description")
     private String description;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
@@ -49,8 +54,11 @@ public class TblProduct implements Serializable {
     private Double price;
     @Column(name = "quantity")
     private Integer quantity;
+    @Size(max = 50)
     @Column(name = "image")
     private String image;
+    @OneToMany(mappedBy = "productId")
+    private Collection<TblOrderDetail> tblOrderDetailCollection;
 
     public TblProduct() {
     }
@@ -105,6 +113,15 @@ public class TblProduct implements Serializable {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    @XmlTransient
+    public Collection<TblOrderDetail> getTblOrderDetailCollection() {
+        return tblOrderDetailCollection;
+    }
+
+    public void setTblOrderDetailCollection(Collection<TblOrderDetail> tblOrderDetailCollection) {
+        this.tblOrderDetailCollection = tblOrderDetailCollection;
     }
 
     @Override

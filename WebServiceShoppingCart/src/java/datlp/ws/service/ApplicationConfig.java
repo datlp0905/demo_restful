@@ -29,7 +29,10 @@ public class ApplicationConfig extends Application {
      * If required, comment out calling this method in getClasses().
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
+        resources.add(datlp.ws.service.TblOrderDetailFacadeREST.class);
+        resources.add(datlp.ws.service.TblOrderFacadeREST.class);
         resources.add(datlp.ws.service.TblProductFacadeREST.class);
+        resources.add(datlp.ws.service.TblUserFacadeREST.class);
     }
     
 }
